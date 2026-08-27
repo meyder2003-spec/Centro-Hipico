@@ -22,7 +22,7 @@ export class AdminUsuarios {
     }
   }
 
-  // Lista de usuarios filtrados por pendientes
+  // Lista de usuarios filtrados por pendientes en tiempo real
   usuariosPendientes = computed(() => 
     this.service.usuarios().filter(u => u.estado === 'PENDIENTE')
   );
@@ -32,16 +32,15 @@ export class AdminUsuarios {
     this.service.usuarios().filter(u => u.estado !== 'PENDIENTE')
   );
 
-  aprobar(id: string) {
-    this.service.cambiarEstadoUsuario(id, 'APROBADO');
+  async aprobar(id: string) {
+    await this.service.cambiarEstadoUsuario(id, 'APROBADO');
   }
 
-  rechazar(id: string) {
-    this.service.cambiarEstadoUsuario(id, 'RECHAZADO');
+  async rechazar(id: string) {
+    await this.service.cambiarEstadoUsuario(id, 'RECHAZADO');
   }
 
-  // MÉTODO AGREGADO: Para promover a ADMIN o cambiar a OBSERVADOR
-  cambiarRol(id: string, nuevoRol: 'ADMIN' | 'OBSERVADOR') {
-    this.service.cambiarRolUsuario(id, nuevoRol);
+  async cambiarRol(id: string, nuevoRol: 'ADMIN' | 'OBSERVADOR') {
+    await this.service.cambiarRolUsuario(id, nuevoRol);
   }
 }
