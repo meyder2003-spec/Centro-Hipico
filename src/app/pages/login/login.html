@@ -1,0 +1,64 @@
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="header-login">
+      <h2>Centro Hípico Militar</h2>
+      <p>Acceso al Sistema de Control Equino</p>
+    </div>
+
+    <!-- Pestañas de navegación entre Login y Registro -->
+    <div class="tabs">
+      <button class="active">
+        Iniciar Sesión
+      </button>
+      <a routerLink="/registro" class="tab-link">
+        Solicitar Registro
+      </a>
+    </div>
+
+    <!-- Alertas -->
+    @if (mensajeError()) {
+      <div class="alert alert-danger">
+        ⚠️ {{ mensajeError() }}
+      </div>
+    }
+
+    @if (mensajeExito()) {
+      <div class="alert alert-success">
+        ✅ {{ mensajeExito() }}
+      </div>
+    }
+
+    <!-- Formulario Único de Iniciar Sesión -->
+    <form (ngSubmit)="onLogin()" class="form-login">
+      <div class="form-group">
+        <label>Correo Institucional / Militar:</label>
+        <input 
+          type="email" 
+          [(ngModel)]="email" 
+          name="email" 
+          placeholder="ejemplo@militar.pe" 
+          required 
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña:</label>
+        <input 
+          type="password" 
+          [(ngModel)]="pass" 
+          name="pass" 
+          placeholder="••••••••" 
+          required 
+        />
+      </div>
+
+      <button type="submit" class="btn-primary btn-block">
+        Ingresar al Sistema
+      </button>
+    </form>
+
+    <div class="footer-login">
+      <a routerLink="/">← Volver a la página principal</a>
+    </div>
+  </div>
+</div>

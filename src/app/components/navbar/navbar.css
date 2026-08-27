@@ -1,0 +1,64 @@
+.nav-militar {
+  background-color: #2d5a27;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.links a {
+  color: #e2e8f0;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.links a:hover {
+  color: #ffffff;
+}
+
+.badge-admin {
+  background-color: #d97706;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.user-info {
+  font-size: 0.9rem;
+  background-color: rgba(255,255,255,0.15);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.btn-login {
+  background-color: white;
+  color: #2d5a27 !important;
+  padding: 6px 14px;
+  border-radius: 4px;
+}
+
+.btn-logout {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}

@@ -1,0 +1,134 @@
+<div class="contenedor">
+  <h2>Nuestros Caballos</h2>
+
+  <!-- Panel Admin para Crear/Editar -->
+  @if (service.usuarioSesion()?.rol === 'ADMIN') {
+    <div class="admin-panel card">
+      <h3>{{ modoEdicion ? 'Editar Ejemplar' : 'Agregar Nuevo Caballo' }}</h3>
+      <form (ngSubmit)="guardar()" class="form-grid">
+        <input [(ngModel)]="caballoForm.nombre" name="nombre" placeholder="Nombre" required>
+        <input [(ngModel)]="caballoForm.raza" name="raza" placeholder="Raza" required>
+        <input type="number" [(ngModel)]="caballoForm.edad" name="edad" placeholder="Edad" required>
+        <select [(ngModel)]="caballoForm.sexo" name="sexo">
+          <option value="Macho">Macho</option>
+          <option value="Hembra">Hembra</option>
+        </select>
+        <input [(ngModel)]="caballoForm.establo" name="establo" placeholder="Establo / Box" required>
+        
+        <!-- 1. SUBIR FOTO DEL CABALLO -->
+        <div class="input-archivo-container">
+          <label class="lbl-file" for="fotoFile">
+            {{ subiendoFoto ? '⏳ Subiendo foto...' : '📷 Elegir Foto del Caballo' }}
+          </label>
+          <input 
+            type="file" 
+            id="fotoFile" 
+            accept="image/*" 
+            (change)="onFotoSelected($event)" 
+            [disabled]="subiendoFoto"
+            style="display: none;">
+          
+          @if (caballoForm.imagenUrl) {
+            <span class="badge-exito">✔ Foto cargada</span>
+          }
+        </div>
+
+        <!-- 2. SUBIR TARJETA DEL CABALLO -->
+        <div class="input-archivo-container">
+          <label class="lbl-file lbl-tarjeta" for="tarjetaFile">
+            {{ subiendoTarjeta ? '⏳ Subiendo tarjeta...' : '📄 Elegir Tarjeta desde PC' }}
+          </label>
+          <input 
+            type="file" 
+            id="tarjetaFile" 
+            accept="image/*,.pdf" 
+            (change)="onTarjetaSelected($event)" 
+            [disabled]="subiendoTarjeta"
+            style="display: none;">
+          
+          @if (caballoForm.tarjetaUrl) {
+            <span class="badge-exito">✔ Tarjeta cargada</span>
+          }
+        </div>
+
+        <textarea [(ngModel)]="caballoForm.descripcion" name="descripcion" placeholder="Descripción"></textarea>
+        
+        <button type="submit" class="btn-primary" [disabled]="subiendoFoto || subiendoTarjeta || !caballoForm.nombre">
+          {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </form>
+    </div>
+  }
+
+  <!-- Filtros -->
+  <div class="filtros card">
+    <input [value]="fNombre()" (input)="fNombre.set($any($event.target).value)" placeholder="Buscar por Nombre...">
+    <select [value]="fRaza()" (change)="fRaza.set($any($event.target).value)">
+      <option value="">Todas las Razas</option>
+      <option value="Pura Sangre">Pura Sangre</option>
+      <option value="Hispano-Árabe">Hispano-Árabe</option>
+    </select>
+    <select [value]="fSexo()" (change)="fSexo.set($any($event.target).value)">
+      <option value="">Todos los Sexos</option>
+      <option value="Macho">Macho</option>
+      <option value="Hembra">Hembra</option>
+    </select>
+    <input type="number" placeholder="Edad exacta" (input)="fEdad.set($any($event.target).value ? +$any($event.target).value : null)">
+  </div>
+
+  <!-- Cards de Caballos -->
+  <div class="grid-cards">
+    @for (c of caballosFiltrados(); track c.id) {
+      <div class="card-caballo" (click)="abrirModal(c)">
+        <img [src]="c.imagenUrl || 'https://via.placeholder.com/300'" [alt]="c.nombre">
+        <div class="body">
+          <h3>{{ c.nombre }} ({{ c.sexo }})</h3>
+          <p><strong>Raza:</strong> {{ c.raza }} | <strong>Edad:</strong> {{ c.edad }} años</p>
+          <p><strong>Establo:</strong> {{ c.establo }}</p>
+          <p>{{ c.descripcion }}</p>
+
+          <!-- BARRERA: Abre únicamente la tarjeta limpia sin disparar datos -->
+          <button 
+            type="button" 
+            class="btn-ver-ficha" 
+            (click)="verTarjetaExclusiva(c.tarjetaUrl, $event)"
+            [disabled]="!c.tarjetaUrl">
+            {{ c.tarjetaUrl ? 'Ver Tarjeta 📄' : 'Sin Tarjeta Registrada' }}
+          </button>
+
+          <!-- Acciones de Administrador -->
+          @if (service.usuarioSesion()?.rol === 'ADMIN') {
+            <div class="acciones" (click)="$event.stopPropagation()">
+              <button (click)="editar(c)" class="btn-edit">Editar</button>
+              <button (click)="eliminar(c.id)" class="btn-del">Eliminar</button>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- COMPONENTE MODAL FICHA GENERAL DE CABALLO -->
+<app-modal-caballo 
+  [caballo]="caballoSeleccionado()" 
+  (cerrar)="cerrarModal()">
+</app-modal-caballo>
+ 
+<!-- VISOR DE TARJETA DENTRO DEL MODAL -->
+@if (tarjetaPdfUrl) {
+  <div class="overlay-pdf" (click)="cerrarVisorTarjeta()">
+    <div class="contenedor-visor-pdf" (click)="$event.stopPropagation()" style="width: 80%; height: 85vh; background: #fff; padding: 10px; border-radius: 8px;">
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
+        <button class="btn-cerrar-pdf" (click)="cerrarVisorTarjeta()">✕ Cerrar Tarjeta</button>
+      </div>
+      
+      <iframe 
+        [src]="tarjetaPdfUrl" 
+        width="100%" 
+        height="90%" 
+        frameborder="0">
+      </iframe>
+    </div>
+  </div>
+}

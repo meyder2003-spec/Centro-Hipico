@@ -1,0 +1,29 @@
+<div class="hero">
+  <h1>Centro Hípico Militar</h1>
+  <p>Excelencia, disciplina y tradición en la crianza y entrenamiento equino.</p>
+  <button routerLink="/catalogo" class="btn-hero">Ver Nuestros Caballos</button>
+</div>
+
+<section class="seccion info">
+  <h2>Sobre Nosotros</h2>
+  <p>Somos una institución dedicada a la instrucción ecuestre militar, al cuidado veterinario de alta especialización y a la preservación de razas equinas de alto rendimiento.</p>
+</section>
+
+<section class="seccion galeria">
+  <h2>Galería Institucional</h2>
+  <div class="grid-galeria">
+    <img src="https://i.pinimg.com/736x/ef/e6/9b/efe69b9ae9151afd68dd3b6b03a07576.jpg" alt="Instalaciones">
+    <img src="https://i.pinimg.com/736x/3b/df/c9/3bdfc963f1e7d806668e00ef3c766478.jpg" alt="Entrenamiento">
+    <img src="https://i.pinimg.com/736x/c0/b4/67/c0b4670238821453e4f7d968eb460b0b.jpg" alt="Salto">
+  </div>
+</section>
+
+<section class="seccion contacto">
+  <h2>Contacto</h2>
+  <form (submit)="$event.preventDefault()">
+    <input type="text" placeholder="Su Nombre" required>
+    <input type="email" placeholder="Correo Electrónico" required>
+    <textarea placeholder="Mensaje..."></textarea>
+    <button type="submit" class="btn-primary">Enviar Mensaje</button>
+  </form>
+</section>

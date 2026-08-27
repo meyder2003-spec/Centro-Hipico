@@ -1,0 +1,105 @@
+<div class="container-admin">
+  <h2>Gestión y Aprobación de Usuarios</h2>
+  <p class="subtitulo">Módulo exclusivo de administración para autorizar el acceso al personal.</p>
+
+  <!-- Sección 1: Solicitudes Pendientes -->
+  <section class="card-seccion">
+    <h3>Solicitudes de Registro Pendientes</h3>
+
+    @if (usuariosPendientes().length > 0) {
+      <div class="tabla-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre / Grado</th>
+              <th>Correo Electrónico</th>
+              <th>Rol Solicitado</th>
+              <th>Estado</th>
+              <th>Acción de Autorización</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (usr of usuariosPendientes(); track usr.id) {
+              <tr>
+                <td><strong>{{ usr.nombre }}</strong></td>
+                <td>{{ usr.email }}</td>
+                <td><span class="badge badge-role">{{ usr.rol }}</span></td>
+                <td><span class="badge badge-pending">PENDIENTE</span></td>
+                <td class="acciones-cell">
+                  <button class="btn-aprobar" (click)="aprobar(usr.id)">Aprobar Acceso</button>
+                  <button class="btn-rechazar" (click)="rechazar(usr.id)">Rechazar</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No hay solicitudes de registro pendientes por autorizar.</p>
+      </div>
+    }
+  </section>
+
+  <!-- Sección 2: Historial de Usuarios Registrados -->
+  <section class="card-seccion">
+    <h3>Personal con Estado Registrado</h3>
+    
+    <div class="tabla-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre / Grado</th>
+            <th>Correo Electrónico</th>
+            <th>Rol Asignado</th>
+            <th>Estado de Acceso</th>
+            <th>Cambiar Rol</th> <!-- Columna nueva -->
+            <th>Cambiar Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (usr of usuariosProcesados(); track usr.id) {
+            <tr>
+              <td>{{ usr.nombre }}</td>
+              <td>{{ usr.email }}</td>
+              <td><span class="badge badge-role">{{ usr.rol }}</span></td>
+              <td>
+                <span class="badge" [ngClass]="{
+                  'badge-success': usr.estado === 'APROBADO',
+                  'badge-danger': usr.estado === 'RECHAZADO'
+                }">
+                  {{ usr.estado }}
+                </span>
+              </td>
+
+              <!-- Nueva Celda: Acción para Promover o Cambiar Rol -->
+              <td>
+                @if (usr.rol === 'OBSERVADOR') {
+                  <button class="btn-promover" (click)="cambiarRol(usr.id, 'ADMIN')">
+                    Hacer ADMIN
+                  </button>
+                } @else {
+                  <button class="btn-degradar" (click)="cambiarRol(usr.id, 'OBSERVADOR')">
+                    Hacer OBSERVADOR
+                  </button>
+                }
+              </td>
+
+              <td>
+                @if (usr.rol !== 'ADMIN') {
+                  <button 
+                    [class]="usr.estado === 'APROBADO' ? 'btn-rechazar' : 'btn-aprobar'"
+                    (click)="usr.estado === 'APROBADO' ? rechazar(usr.id) : aprobar(usr.id)">
+                    {{ usr.estado === 'APROBADO' ? 'Bloquear' : 'Reactivar' }}
+                  </button>
+                } @else {
+                  <small class="text-muted">Administrador Principal</small>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

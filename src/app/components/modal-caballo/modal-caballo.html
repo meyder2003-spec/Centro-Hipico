@@ -1,0 +1,47 @@
+@if (caballo) {
+  <div class="modal-overlay" (click)="onCerrar()">
+    <div class="modal-contenido" (click)="$event.stopPropagation()">
+      
+      <button class="btn-cerrar" (click)="onCerrar()">&times;</button>
+
+      <div class="modal-header">
+        <h2>Ficha Técnica del Ejemplar: {{ caballo.nombre }}</h2>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-img-container">
+          <!-- CAMBIO AQUÍ: imagenUrl en lugar de fotoUrl -->
+          <img [src]="caballo.imagenUrl || 'https://via.placeholder.com/300'" [alt]="caballo.nombre" />
+        </div>
+
+        <div class="modal-detalles">
+          <div class="detalle-item">
+            <strong>Nombre:</strong> {{ caballo.nombre }}
+          </div>
+          <div class="detalle-item">
+            <strong>Raza / Origen:</strong> {{ caballo.raza }}
+          </div>
+          <div class="detalle-item">
+            <strong>Edad:</strong> {{ caballo.edad }} años
+          </div>
+          <div class="detalle-item">
+            <strong>Sexo:</strong> {{ caballo.sexo }}
+          </div>
+          <div class="detalle-item">
+            <strong>Establo / Box:</strong> {{ caballo.establo }}
+          </div>
+          
+          <div class="detalle-item full-width">
+            <strong>Historial / Observaciones:</strong>
+            <p>{{ caballo.descripcion || 'Sin observaciones adicionales registradas.' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secundario" (click)="onCerrar()">Cerrar Ficha</button>
+      </div>
+
+    </div>
+  </div>
+}

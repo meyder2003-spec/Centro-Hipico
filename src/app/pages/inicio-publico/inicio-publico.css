@@ -1,0 +1,81 @@
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/736x/9f/9d/d5/9f9dd58b705e7917384a29cd2f8d26a4.jpg') center/cover;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+.btn-hero {
+  background-color: #2d5a27;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.seccion {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.seccion h2 {
+  color: #2d5a27;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 8px;
+}
+
+/* Galería en formato rejilla limpia */
+.grid-galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.grid-galeria img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Formulario de Contacto en fila/columna alineada */
+.contacto form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.contacto input, .contacto textarea {
+  flex: 1 1 200px;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+.contacto textarea {
+  flex: 1 1 100%;
+  height: 100px;
+  resize: vertical;
+}

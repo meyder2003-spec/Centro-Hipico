@@ -1,0 +1,20 @@
+<nav class="nav-militar">
+  <div class="logo" routerLink="/">
+     Centro Hípico Militar
+  </div>
+  <div class="links">
+    <a routerLink="/">Inicio</a>
+    <a routerLink="/catalogo">Ver Nuestros Caballos</a>
+
+    @if (service.usuarioSesion()?.rol === 'ADMIN') {
+      <a routerLink="/admin-usuarios" class="badge-admin">Aprobar Usuarios</a>
+    }
+
+    @if (service.usuarioSesion()) {
+      <span class="user-info">👤 {{ service.usuarioSesion()?.nombre }} ({{ service.usuarioSesion()?.rol }})</span>
+      <button (click)="salir()" class="btn-logout">Cerrar Sesión</button>
+    } @else {
+      <a routerLink="/login" class="btn-login">Ingresar</a>
+    }
+  </div>
+</nav>
