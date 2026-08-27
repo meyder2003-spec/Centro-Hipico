@@ -27,7 +27,7 @@ export class Registro {
     this.mensajeExito.set('');
   }
 
-  onRegistro() {
+  async onRegistro() {
     this.limpiarMensajes();
 
     if (!this.nombre || !this.email || !this.pass) {
@@ -35,8 +35,8 @@ export class Registro {
       return;
     }
 
-    // Registrar usuario como OBSERVADOR por defecto
-    const resultado = this.service.registrarUsuario({
+    // Usamos await para resolver la Promesa que retorna registrarUsuario
+    const resultado = await this.service.registrarUsuario({
       id: 'USR-' + Date.now().toString().slice(-4),
       nombre: this.nombre,
       email: this.email,

@@ -26,7 +26,7 @@ export class Login {
     this.mensajeExito.set('');
   }
 
-  onLogin() {
+  async onLogin() {
     this.limpiarMensajes();
     
     if (!this.email || !this.pass) {
@@ -34,7 +34,8 @@ export class Login {
       return;
     }
 
-    const resultado = this.service.login(this.email, this.pass);
+    // Usamos await para esperar a que Firestore devuelva la promesa
+    const resultado = await this.service.login(this.email, this.pass);
 
     if (resultado.exito) {
       this.router.navigate(['/catalogo']);

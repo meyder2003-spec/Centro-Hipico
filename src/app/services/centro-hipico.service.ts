@@ -7,6 +7,7 @@ import { Usuario, Caballo } from '../models/sistema.model';
 })
 export class CentroHipicoService {
   private firestore = inject(Firestore);
+
   usuarioSesion = signal<Usuario | null>(null);
   usuarios = signal<Usuario[]>([]);
   caballos = signal<Caballo[]>([]);
@@ -20,7 +21,6 @@ export class CentroHipicoService {
     const ref = collection(this.firestore, 'usuarios');
     collectionData(ref, { idField: 'id' }).subscribe((data) => {
       this.usuarios.set(data as Usuario[]);
-      // Si está vacía en la nube, sembramos los usuarios por primera vez
       if (data.length === 0) {
         this.sembrarUsuariosIniciales();
       }
@@ -65,11 +65,8 @@ export class CentroHipicoService {
     }
   }
 
-  // Login asíncrono consultando Firestore directo
   async login(email: string, pass: string): Promise<{ exito: boolean; msj: string }> {
-    // Buscar en la signal o traer directo de la base de datos
     let lista = this.usuarios();
-    
     if (lista.length === 0) {
       const snapshot = await getDocs(collection(this.firestore, 'usuarios'));
       lista = snapshot.docs.map(doc => doc.data() as Usuario);
@@ -84,11 +81,26 @@ export class CentroHipicoService {
     return { exito: true, msj: 'Bienvenido' };
   }
 
-  async registrarUsuario(usuarioData: any) {
+  async registrarUsuario(usuarioData: any): Promise<{ exito: boolean; msj: string }> {
+    const existe = this.usuarios().some(u => u.email === usuarioData.email);
+    if (existe) {
+      return { exito: false, msj: 'El correo electrónico ya se encuentra registrado.' };
+    }
+
     const id = usuarioData.id || Date.now().toString();
     const nuevoUsuario = { ...usuarioData, id, estado: 'PENDIENTE' };
     await setDoc(doc(this.firestore, `usuarios/${id}`), nuevoUsuario);
     return { exito: true, msj: 'Solicitud enviada con éxito.' };
+  }
+
+  async cambiarEstadoUsuario(id: string, estado: 'APROBADO' | 'RECHAZADO') {
+    const docRef = doc(this.firestore, `usuarios/${id}`);
+    await updateDoc(docRef, { estado });
+  }
+
+  async cambiarRolUsuario(id: string, nuevoRol: 'ADMIN' | 'OBSERVADOR') {
+    const docRef = doc(this.firestore, `usuarios/${id}`);
+    await updateDoc(docRef, { rol: nuevoRol });
   }
 
   async agregarCaballo(caballo: Caballo) {
