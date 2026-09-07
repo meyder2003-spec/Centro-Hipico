@@ -14,6 +14,9 @@ export class Navbar implements OnInit, OnDestroy {
   public service = inject(CentroHipicoService);
   private router = inject(Router);
 
+  // Estado para controlar el menú responsive de 3 rayitas
+  menuAbierto = signal<boolean>(false);
+
   // Lista de Comunicados
   anuncios: string[] = [
     'Registro de Ejemplares Equinos de Alta Competencia',
@@ -33,6 +36,16 @@ export class Navbar implements OnInit, OnDestroy {
     this.detenerAutoplay();
   }
 
+  // Métodos para el menú hamburguesa
+  toggleMenu(): void {
+    this.menuAbierto.update(estado => !estado);
+  }
+
+  cerrarMenu(): void {
+    this.menuAbierto.set(false);
+  }
+
+  // Métodos del Carrusel
   iniciarAutoplay(): void {
     this.detenerAutoplay();
     this.timer = setInterval(() => {

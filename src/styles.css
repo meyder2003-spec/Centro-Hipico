@@ -20,3 +20,82 @@ body {
   background-color: var(--militar-negro);
   color: var(--militar-texto);
 }
+/* ===================================================
+   DISEÑO RESPONSIVO MÓVIL (Smartphones y Tablets)
+   =================================================== */
+
+/* Evitar el desplazamiento horizontal innecesario */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  
+  /* Contenedores y márgenes de páginas */
+  .container, 
+  .main-content, 
+  .dashboard-container, 
+  .wrapper {
+    padding: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Ajuste de tipografía en encabezados */
+  h1 { font-size: 1.5rem !important; }
+  h2 { font-size: 1.25rem !important; }
+  h3 { font-size: 1.1rem !important; }
+
+  /* Contenedor flexible para tablas extensas */
+  .table-responsive, 
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+  }
+
+  table {
+    min-width: 550px; /* Previene el colapso del texto en celdas */
+  }
+
+  /* Formularios: reordenar columnas a disposición vertical */
+  form, 
+  .form-row, 
+  .grid-2-col, 
+  .grid-3-col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .form-group, 
+  .input-field, 
+  input, 
+  select, 
+  textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Botones adaptados al ancho del dispositivo */
+  .btn, 
+  button[type="submit"], 
+  .btn-primary, 
+  .btn-secondary {
+    width: 100% !important;
+    padding: 12px !important;
+    font-size: 1rem !important;
+    margin: 4px 0 !important;
+  }
+
+  /* Cuadrícula de tarjetas/módulos en una sola columna */
+  .card-grid, 
+  .dashboard-cards, 
+  .catalogo-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+}

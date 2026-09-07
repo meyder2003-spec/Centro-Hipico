@@ -20,6 +20,7 @@
   align-items: center;
   gap: 12px;
 }
+
 .escudo {
   width: 42px;
   height: 42px;
@@ -31,7 +32,7 @@
 .escudo-img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Evita que la imagen se deforme o estire */
+  object-fit: contain;
 }
 
 .star-icon {
@@ -101,36 +102,36 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
-/* CINTA TICKER ABAJO DEL NAVBAR */
-.ticker-comunicados {
-  background-color: var(--militar-verde);
-  border-top: 1px solid rgba(212, 175, 55, 0.3);
-  border-bottom: 2px solid var(--militar-dorado);
-  padding: 0.4rem 0;
-  overflow: hidden;
-  white-space: nowrap;
+/* BOTÓN HAMBURGUESA (OCULTO EN PC) */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
 }
 
-.ticker-items {
-  display: flex;
-  gap: 3rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--militar-dorado-claro);
-  padding-left: 2rem;
+.hamburger-btn .bar {
+  width: 100%;
+  height: 3px;
+  background-color: var(--militar-dorado, #d4af37);
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
-.bullet {
-  color: var(--militar-dorado);
-  margin-right: 6px;
-}
-/* Carrusel de Comunicados */
+/* CARRUSEL DE COMUNICADOS */
 .carrusel-comunicados {
   position: relative;
-  background-color: #0d2912; /* Verde militar */
-  border-top: 1px solid #d4af37; /* Dorado */
+  background-color: #0d2912;
+  border-top: 1px solid #d4af37;
   border-bottom: 2px solid #d4af37;
   color: #ffffff;
   display: flex;
@@ -176,7 +177,6 @@
   margin-right: 6px;
 }
 
-/* Flechas de Control */
 .btn-carrusel {
   position: absolute;
   top: 50%;
@@ -199,7 +199,6 @@
 .btn-carrusel.prev { left: 15px; }
 .btn-carrusel.next { right: 15px; }
 
-/* Indicadores de Puntos */
 .indicadores {
   position: absolute;
   bottom: 2px;
@@ -220,4 +219,82 @@
 .punto.activo {
   background-color: #d4af37;
   transform: scale(1.3);
+}
+
+/* ==========================================
+   ADAPTACIÓN RESPONSIVA MÓVIL (<= 768px)
+   ========================================== */
+@media (max-width: 768px) {
+  .navbar-militar {
+    position: relative;
+    padding: 0.8rem 1.2rem !important;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .titulo-entidad {
+    font-size: 0.9rem;
+  }
+
+  .subtitulo-entidad {
+    font-size: 0.55rem;
+  }
+
+  /* Muestra el botón de 3 rayitas */
+  .hamburger-btn {
+    display: flex;
+  }
+
+  /* Oculta el menú normal en móviles y lo convierte en desplegable */
+  .menu-principal {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--militar-negro, #0b1d13);
+    border-bottom: 2px solid var(--militar-dorado, #d4af37);
+    padding: 1.2rem 0;
+    gap: 1rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+  }
+
+  /* Muestra el menú al pulsar las 3 rayitas (Signal menuAbierto) */
+  .menu-principal.activo {
+    display: flex !important;
+  }
+
+  .menu-principal li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .menu-principal a,
+  .btn-destacado-militar,
+  .btn-salir-militar {
+    display: inline-block;
+    width: 80%;
+    padding: 10px 0;
+    margin: 0 auto;
+  }
+
+  /* Adaptación de carrusel en móviles */
+  .carrusel-comunicados {
+    padding: 0 30px;
+    height: auto;
+    min-height: 48px;
+  }
+
+  .carrusel-item {
+    font-size: 0.72rem;
+    line-height: 1.2;
+  }
+
+  .btn-carrusel.prev { left: 5px; }
+  .btn-carrusel.next { right: 5px; }
 }

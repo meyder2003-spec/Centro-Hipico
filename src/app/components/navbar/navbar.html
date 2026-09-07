@@ -11,17 +11,50 @@
       </div>
     </div>
 
-    <ul class="menu-principal">
-      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">INICIO</a></li>
-      <li><a routerLink="/catalogo" routerLinkActive="active">CATÁLOGO</a></li>
+    <!-- BOTÓN HAMBURGUESA (MÓVIL) -->
+    <button class="hamburger-btn" (click)="toggleMenu()" aria-label="Abrir menú">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <!-- MENÚ PRINCIPAL -->
+    <ul class="menu-principal" [class.activo]="menuAbierto()">
+      <li>
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="cerrarMenu()">
+          INICIO
+        </a>
+      </li>
+      <li>
+        <a routerLink="/catalogo" routerLinkActive="active" (click)="cerrarMenu()">
+          CATÁLOGO
+        </a>
+      </li>
+
       @if (service.usuarioSesion()) {
         @if (service.usuarioSesion()?.rol === 'ADMIN') {
-          <li><a routerLink="/admin-dashboard" routerLinkActive="active">ADMINISTRACIÓN</a></li>
+          <li>
+            <a routerLink="/admin-dashboard" routerLinkActive="active" (click)="cerrarMenu()">
+              ADMINISTRACIÓN
+            </a>
+          </li>
         }
-        <li><button (click)="salir()" class="btn-salir-militar">CERRAR SESIÓN</button></li>
+        <li>
+          <button (click)="salir(); cerrarMenu()" class="btn-salir-militar">
+            CERRAR SESIÓN
+          </button>
+        </li>
       } @else {
-        <li><a routerLink="/login" routerLinkActive="active">INGRESO</a></li>
-        <li><a routerLink="/registro" class="btn-destacado-militar">REGISTRO</a></li>
+        <li>
+          <a routerLink="/login" routerLinkActive="active" (click)="cerrarMenu()">
+            INGRESO
+          </a>
+        </li>
+        <li>
+          <a routerLink="/registro" class="btn-destacado-militar" (click)="cerrarMenu()">
+            REGISTRO
+          </a>
+        </li>
       }
     </ul>
   </nav>
