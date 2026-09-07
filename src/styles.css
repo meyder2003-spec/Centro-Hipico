@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap');
+
+:root {
+  --militar-negro: #0d120f;
+  --militar-oscuro: #16221b;
+  --militar-verde: #233729;
+  --militar-dorado: #d4af37;
+  --militar-dorado-claro: #f3e5ab;
+  --militar-texto: #e2e8e4;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--militar-negro);
+  color: var(--militar-texto);
+}

@@ -1,0 +1,107 @@
+<!-- HERO INSTITUCIONAL -->
+<section class="hero-militar">
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <div class="categoria-etiqueta">
+      <span class="linea"></span>
+      <span class="texto-etiqueta">PATRIMONIO EQUINO Y DOCTRINA</span>
+    </div>
+
+    <h1 class="titulo-principal">
+      Excelencia al servicio de la <br>
+      <span class="texto-dorado">defensa nacional</span>
+    </h1>
+
+    <p class="descripcion-hero">
+      El Centro Hípico Militar administra el registro genético, sanidad, adiestramiento 
+      y preparación del patrimonio equino oficial de las Fuerzas Armadas del Perú.
+    </p>
+
+    <div class="hero-acciones">
+      <!-- Corregido: Redirige a /catalogo-caballos -->
+      <a routerLink="/login" class="btn-hero-primary">CONSULTAR CATÁLOGO</a>
+      <a routerLink="/login" class="btn-hero-secondary">ACCESO RESTRINGIDO</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN GALERÍA INSTITUCIONAL -->
+<section class="galeria-seccion">
+  <div class="galeria-header">
+    <div class="titulos">
+      <span class="subtitulo-galeria">REGISTRO FOTOGRÁFICO</span>
+      <h2>GALERÍA INSTITUCIONAL</h2>
+    </div>
+
+    <!-- BOTÓN EXCLUSIVO ADMIN PARA AGREGAR FOTO -->
+    @if (service.usuarioSesion()?.rol === 'ADMIN') {
+      <button class="btn-admin-agregar" (click)="mostrarModal.set(true)">
+        + AGREGAR FOTOGRAFÍA
+      </button>
+    }
+  </div>
+
+  <!-- GRID DE FOTOGRAFÍAS -->
+  <div class="galeria-grid">
+    @for (img of service.galeria(); track img.id) {
+      <div class="galeria-card">
+        <div class="img-wrapper">
+          <img [src]="img.url" [alt]="img.titulo" />
+          <div class="card-overlay">
+            <h4>{{ img.titulo }}</h4>
+            @if (img.descripcion) {
+              <p>{{ img.descripcion }}</p>
+            }
+          </div>
+        </div>
+
+        <!-- BOTÓN ELIMINAR EXCLUSIVO ADMIN -->
+        @if (service.usuarioSesion()?.rol === 'ADMIN') {
+          <button class="btn-eliminar-foto" (click)="eliminarImagen(img.id)" title="Eliminar imagen">
+            ✕
+          </button>
+        }
+      </div>
+    } @empty {
+      <div class="galeria-vacia">
+        <p>No hay fotografías registradas en la galería institucional.</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- MODAL DE SUBIDA PARA ADMINISTRADOR -->
+@if (mostrarModal()) {
+  <div class="modal-backdrop">
+    <div class="modal-militar">
+      <div class="modal-header">
+        <h3>NUEVA FOTOGRAFÍA INSTITUCIONAL</h3>
+        <button class="btn-close" (click)="mostrarModal.set(false)">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label>TÍTULO DE LA FOTOGRAFÍA *</label>
+          <input type="text" [(ngModel)]="nuevoTitulo" placeholder="Ej. Inspección de Establos 2026" />
+        </div>
+
+        <div class="form-group">
+          <label>DESCRIPCIÓN / EVENTO</label>
+          <textarea [(ngModel)]="nuevaDescripcion" rows="3" placeholder="Detalle la actividad o ejemplar exhibido..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>IMAGEN (FORMATO JPG/PNG) *</label>
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-cancel" (click)="mostrarModal.set(false)">CANCELAR</button>
+        <button class="btn-modal-submit" (click)="guardarImagen()" [disabled]="cargando()">
+          {{ cargando() ? 'SUBIENDO...' : 'GUARDAR Y PUBLICAR' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

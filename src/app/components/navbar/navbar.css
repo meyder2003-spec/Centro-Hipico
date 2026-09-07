@@ -1,0 +1,223 @@
+.header-institucional {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.navbar-militar {
+  background-color: var(--militar-negro);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 3rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.escudo {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.escudo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Evita que la imagen se deforme o estire */
+}
+
+.star-icon {
+  color: var(--militar-dorado);
+  font-size: 1.2rem;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo-entidad {
+  font-family: 'Cinzel', serif;
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+.subtitulo-entidad {
+  font-size: 0.65rem;
+  color: var(--militar-dorado);
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.menu-principal {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+}
+
+.menu-principal a {
+  color: #cfd8d2;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+
+.menu-principal a:hover,
+.menu-principal a.active {
+  color: var(--militar-dorado);
+}
+
+.btn-destacado-militar {
+  background-color: var(--militar-verde);
+  color: #ffffff !important;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2px;
+  border: 1px solid var(--militar-dorado);
+}
+
+.btn-destacado-militar:hover {
+  background-color: var(--militar-dorado);
+  color: var(--militar-negro) !important;
+}
+
+.btn-salir-militar {
+  background: transparent;
+  border: 1px solid var(--militar-dorado);
+  color: var(--militar-dorado);
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* CINTA TICKER ABAJO DEL NAVBAR */
+.ticker-comunicados {
+  background-color: var(--militar-verde);
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  border-bottom: 2px solid var(--militar-dorado);
+  padding: 0.4rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-items {
+  display: flex;
+  gap: 3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--militar-dorado-claro);
+  padding-left: 2rem;
+}
+
+.bullet {
+  color: var(--militar-dorado);
+  margin-right: 6px;
+}
+/* Carrusel de Comunicados */
+.carrusel-comunicados {
+  position: relative;
+  background-color: #0d2912; /* Verde militar */
+  border-top: 1px solid #d4af37; /* Dorado */
+  border-bottom: 2px solid #d4af37;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  overflow: hidden;
+  padding: 0 40px;
+}
+
+.carrusel-contenedor {
+  position: relative;
+  width: 100%;
+  max-width: 850px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrusel-item {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateY(8px);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+.carrusel-item.activo {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.bullet {
+  color: #d4af37;
+  margin-right: 6px;
+}
+
+/* Flechas de Control */
+.btn-carrusel {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #d4af37;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 10px;
+  z-index: 2;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-carrusel:hover {
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.2);
+}
+
+.btn-carrusel.prev { left: 15px; }
+.btn-carrusel.next { right: 15px; }
+
+/* Indicadores de Puntos */
+.indicadores {
+  position: absolute;
+  bottom: 2px;
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+
+.punto {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(212, 175, 55, 0.35);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.punto.activo {
+  background-color: #d4af37;
+  transform: scale(1.3);
+}

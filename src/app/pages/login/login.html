@@ -1,0 +1,30 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Ingreso al Sistema</h2>
+    <p class="auth-desc">Acceso restringido para personal autorizado</p>
+
+    @if (errorMsg()) {
+      <div class="alert-error">
+        {{ errorMsg() }}
+      </div>
+    }
+
+    <form (ngSubmit)="iniciarSesion()">
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input type="email" [(ngModel)]="email" name="email" required placeholder="ejemplo@militar.pe">
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="pass" name="pass" required placeholder="••••••••">
+      </div>
+
+      <button type="submit" class="btn-submit">Ingresar</button>
+    </form>
+
+    <div class="auth-footer">
+      <p>¿No tienes una cuenta? <a routerLink="/registro">Solicita tu registro aquí</a></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="container-admin">
+  <h2>Administración y Aprobación de Usuarios</h2>
+  <p class="subtitle">Panel de autorización de cuentas de acceso militar e invitados.</p>
+
+  <!-- SOLICITUDES PENDIENTES -->
+  <section class="section-card">
+    <h3>Solicitudes Pendientes ({{ usuariosPendientes().length }})</h3>
+    @if (usuariosPendientes().length > 0) {
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Rol Solicitado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (u of usuariosPendientes(); track u.id) {
+              <tr>
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.email }}</td>
+                <td><span class="badge-rol">{{ u.rol }}</span></td>
+                <td class="action-buttons">
+                  <button class="btn-aprobar" (click)="aprobar(u.id!)">Aprobar</button>
+                  <button class="btn-rechazar" (click)="rechazar(u.id!)">Rechazar</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="empty-msg">No hay solicitudes de registro pendientes.</p>
+    }
+  </section>
+
+  <!-- USUARIOS REGISTRADOS -->
+  <section class="section-card">
+    <h3>Usuarios Procesados en el Sistema</h3>
+    @if (usuariosProcesados().length > 0) {
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Rol Asignado</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (u of usuariosProcesados(); track u.id) {
+              <tr>
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.email }}</td>
+                <td>
+                  <select [value]="u.rol" (change)="cambiarRol(u.id!, $event)" class="select-rol">
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="OBSERVADOR">OBSERVADOR</option>
+                  </select>
+                </td>
+                <td>
+                  <span class="status-badge" [ngClass]="u.estado.toLowerCase()">
+                    {{ u.estado }}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn-eliminar" (click)="eliminar(u.id!)">Eliminar</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="empty-msg">No hay usuarios registrados activos.</p>
+    }
+  </section>
+</div>

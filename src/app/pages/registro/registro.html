@@ -1,0 +1,45 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Solicitud de Registro</h2>
+    <p class="auth-desc">Crea tu cuenta para acceder al sistema institucional</p>
+
+    @if (mensajeExito()) {
+      <div class="alert-success">
+        ✅ Solicitud enviada con éxito. Redirigiendo al inicio de sesión para la aprobación del administrador...
+      </div>
+    } @else {
+      <form (ngSubmit)="registrar()">
+        <div class="form-group">
+          <label>Nombre Completo</label>
+          <input type="text" [(ngModel)]="nombre" name="nombre" required placeholder="Ej. Juan Pérez">
+        </div>
+
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" [(ngModel)]="email" name="email" required placeholder="correo@ejemplo.com">
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" [(ngModel)]="pass" name="pass" required placeholder="••••••••">
+        </div>
+
+        <div class="form-group">
+          <label>Perfil Solicitado</label>
+          <select [(ngModel)]="rolSeleccionado" name="rol">
+            <option value="OBSERVADOR">OBSERVADOR (Solo Lectura)</option>
+            <option value="ADMIN">ADMINISTRADOR (Gestión Completa)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="cargando()">
+          {{ cargando() ? 'Enviando...' : 'Registrarse' }}
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p>¿Ya posees una cuenta? <a routerLink="/login">Ingresa aquí</a></p>
+      </div>
+    }
+  </div>
+</div>

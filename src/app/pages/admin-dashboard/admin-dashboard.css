@@ -1,0 +1,310 @@
+.admin-container {
+  min-height: calc(100vh - 120px);
+  padding: 2.5rem 6%;
+  background-color: var(--militar-negro, #0d120f);
+  color: var(--militar-texto, #e2e8e4);
+}
+
+/* Header del Dashboard */
+.admin-header {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding-bottom: 1.5rem;
+}
+
+.badge-militar {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--militar-dorado, #d4af37);
+  border: 1px solid var(--militar-dorado, #d4af37);
+  padding: 0.25rem 0.6rem;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+.admin-header h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.admin-desc {
+  font-size: 0.9rem;
+  color: #a0b0a5;
+}
+
+/* Grilla de Métricas / Tarjetas */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.metric-card {
+  background-color: var(--militar-oscuro, #16221b);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.metric-card.destacado {
+  border-color: var(--militar-dorado, #d4af37);
+  background: linear-gradient(135deg, #16221b 0%, #1e3025 100%);
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #a0b0a5;
+}
+
+.metric-value {
+  font-family: 'Cinzel', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.metric-card.destacado .metric-value {
+  color: var(--militar-dorado, #d4af37);
+}
+
+/* Secciones y Tablas */
+.admin-section {
+  background-color: var(--militar-oscuro, #16221b);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 4px;
+  padding: 1.75rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.section-header {
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.75rem;
+}
+
+.section-header h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.25rem;
+  color: var(--militar-dorado-claro, #f3e5ab);
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.militar-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.militar-table th {
+  background-color: rgba(13, 18, 15, 0.8);
+  color: #d2dcd5;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 1rem;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.militar-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #c4d1c8;
+}
+
+.militar-table tbody tr:hover {
+  background-color: rgba(35, 55, 41, 0.3);
+}
+
+.user-name {
+  font-weight: 600;
+  color: #ffffff !important;
+}
+
+/* Badges para Roles y Estados */
+.role-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+}
+
+.role-badge.admin {
+  background-color: rgba(212, 175, 55, 0.15);
+  color: var(--militar-dorado, #d4af37);
+  border: 1px solid var(--militar-dorado, #d4af37);
+}
+
+.role-badge.observer {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #a0b0a5;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.status-badge.active {
+  color: #48bb78;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* Acciones y Botones de la Tabla */
+.actions-cell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-action {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.btn-action.approve {
+  background-color: var(--militar-verde, #233729);
+  color: #ffffff;
+  border: 1px solid var(--militar-dorado, #d4af37);
+}
+
+.btn-action.approve:hover {
+  background-color: var(--militar-dorado, #d4af37);
+  color: #0d120f;
+}
+
+.btn-action.reject {
+  background-color: transparent;
+  color: #e53e3e;
+  border: 1px solid #e53e3e;
+}
+
+.btn-action.reject:hover {
+  background-color: #e53e3e;
+  color: #ffffff;
+}
+
+.btn-action.edit {
+  background-color: transparent;
+  color: var(--militar-dorado-claro, #f3e5ab);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+}
+
+.btn-action.edit:hover {
+  border-color: var(--militar-dorado, #d4af37);
+  color: #ffffff;
+}
+.role-select {
+  background-color: #1a231e;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+}
+
+.role-select:focus {
+  border-color: #ffffff;
+}
+/* Selector de Estado */
+.status-select {
+  background-color: #0b100d;
+  border: 1px solid #2d3f34;
+  border-radius: 6px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.status-select.active {
+  color: #2ecc71;
+  border-color: #27ae60;
+}
+
+.status-select.inactive {
+  color: #e74c3c;
+  border-color: #c0392b;
+}
+
+.status-select option {
+  background-color: #141b18;
+  color: #ffffff;
+}
+/* Mejoras de contraste y consistencia para los Selectors */
+.role-select {
+  background-color: #0b100d;
+  color: var(--militar-dorado, #d4af37);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 0.35rem 0.65rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.role-select:focus {
+  border-color: var(--militar-dorado, #d4af37);
+  box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+}
+
+.role-select option {
+  background-color: #141b18;
+  color: #ffffff;
+}
+
+/* Selector de Estado con dinamismo de color */
+.status-select {
+  background-color: #0b100d;
+  border: 1px solid #2d3f34;
+  border-radius: 4px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.status-select.active {
+  color: #2ecc71;
+  border-color: #27ae60;
+}
+
+.status-select.inactive {
+  color: #e74c3c;
+  border-color: #c0392b;
+}
+
+.status-select option {
+  background-color: #141b18;
+  color: #ffffff;
+}

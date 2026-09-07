@@ -1,0 +1,170 @@
+<div class="catalogo-container">
+  <header class="catalogo-header">
+    <span class="badge-militar">REGISTRO HIPICO INSTITUCIONAL</span>
+    <h2>Catálogo de Ejemplares</h2>
+    <p>Consulte y gestione la información técnica y tarjetas descriptivas de los ejemplares.</p>
+  </header>
+
+  <!-- Barra de Filtros -->
+  <div class="filtros-card">
+    <div class="filter-group">
+      <label>Nombre</label>
+      <input type="text" [ngModel]="filtroNombre()" (ngModelChange)="filtroNombre.set($event)" placeholder="Filtrar por nombre...">
+    </div>
+    <div class="filter-group">
+      <label>Raza</label>
+      <input type="text" [ngModel]="filtroRaza()" (ngModelChange)="filtroRaza.set($event)" placeholder="Filtrar por raza...">
+    </div>
+    <div class="filter-group">
+      <label>Edad</label>
+      <input type="number" [ngModel]="filtroEdad()" (ngModelChange)="filtroEdad.set($event)" placeholder="Edad exacta...">
+    </div>
+
+    <!-- Botón visible SOLO si el rol es ADMIN -->
+    @if (usuario()?.rol === 'ADMIN') {
+      <div class="filter-group btn-container">
+        <button class="btn-militar-primary" (click)="abrirModalCrear()">+ AGREGAR EJEMPLAR</button>
+      </div>
+    }
+  </div>
+
+  <!-- Lista de Tarjetas de Caballos -->
+  <div class="caballos-grid">
+    @for (caballo of caballosFiltrados(); track caballo.id) {
+      <div class="caballo-card">
+        
+        <!-- Vista previa de Imagen del Ejemplar (Haz clic para ampliar) -->
+        <div class="card-media">
+          @if (caballo.imagenUrl) {
+            <img 
+              [src]="caballo.imagenUrl" 
+              [alt]="caballo.nombre" 
+              class="caballo-img clickable" 
+              (click)="verImagenCompleta(caballo.imagenUrl)" 
+              title="Haz clic para ampliar la imagen"
+            />
+          } @else {
+            <div class="no-img-placeholder">
+              <span>Sin foto disponible</span>
+            </div>
+          }
+        </div>
+
+        <div class="card-header">
+          <h3>{{ caballo.nombre }}</h3>
+          <span class="badge-raza">{{ caballo.raza }}</span>
+        </div>
+
+        <div class="card-body">
+          <p><strong>Edad:</strong> {{ caballo.edad }} años</p>
+
+          @if (caballo.sexo) {
+            <p><strong>Sexo:</strong> {{ caballo.sexo }}</p>
+          }
+
+          @if (caballo.establo) {
+            <p><strong>Establo:</strong> {{ caballo.establo }}</p>
+          }
+
+          @if (caballo.descripcion) {
+            <p class="caballo-desc">{{ caballo.descripcion }}</p>
+          }
+          
+          <!-- Enlace a Tarjeta PDF -->
+          <div class="pdf-container">
+            @if (caballo.pdfUrl || caballo.tarjetaUrl) {
+              <a [href]="caballo.pdfUrl || caballo.tarjetaUrl" target="_blank" rel="noopener noreferrer" class="btn-pdf">
+                📄 Abrir Tarjeta PDF
+              </a>
+            } @else {
+              <span class="no-pdf">Sin tarjeta PDF adjunta</span>
+            }
+          </div>
+        </div>
+
+        <!-- Opciones de Edición/Eliminación SOLO si el rol es ADMIN -->
+        @if (usuario()?.rol === 'ADMIN') {
+          <div class="card-actions">
+            <button class="btn-action edit" (click)="abrirModalEditar(caballo)">Editar</button>
+            <button class="btn-action reject" (click)="eliminarCaballo(caballo)">Eliminar</button>
+          </div>
+        }
+      </div>
+    } @empty {
+      <p class="empty-msg">No se encontraron ejemplares con los criterios ingresados.</p>
+    }
+  </div>
+
+  <!-- Modal para Agregar/Editar Caballo (ADMIN) -->
+  @if (mostrarModal()) {
+    <div class="modal-backdrop" (click)="cerrarModal()">
+      <div class="modal-card" (click)="$event.stopPropagation()">
+        <form (ngSubmit)="guardarCaballo()">
+          
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" [(ngModel)]="nuevoCaballo.nombre" name="nombre" required />
+          </div>
+
+          <div class="form-group">
+            <label>Raza</label>
+            <input type="text" [(ngModel)]="nuevoCaballo.raza" name="raza" required />
+          </div>
+
+          <div class="form-group">
+            <label>Edad</label>
+            <input type="number" [(ngModel)]="nuevoCaballo.edad" name="edad" required />
+          </div>
+
+          <div class="form-group">
+            <label>Sexo</label>
+            <select [(ngModel)]="nuevoCaballo.sexo" name="sexo" class="select-militar">
+              <option value="Macho">Macho</option>
+              <option value="Hembra">Hembra</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Establo</label>
+            <input type="text" [(ngModel)]="nuevoCaballo.establo" name="establo" placeholder="Ej. Establo 04" />
+          </div>
+
+          <div class="form-group">
+            <label>Descripción</label>
+            <textarea [(ngModel)]="nuevoCaballo.descripcion" name="descripcion" rows="2"></textarea>
+          </div>
+
+          <!-- Subida de Imagen -->
+          <div class="form-group">
+            <label>Foto del Ejemplar (Imagen)</label>
+            <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+          </div>
+
+          <!-- Subida de PDF -->
+          <div class="form-group">
+            <label>Tarjeta Informativa (PDF)</label>
+            <input type="file" (change)="onFileSelected($event)" accept="application/pdf" />
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn-action cancel" (click)="cerrarModal()">Cancelar</button>
+            <button type="submit" class="btn-action approve" [disabled]="cargando()">
+              {{ cargando() ? 'Guardando...' : 'Guardar Datos' }}
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- Modal Visor de Imagen en Pantalla Completa -->
+  @if (imagenSeleccionada()) {
+    <div class="image-modal-backdrop" (click)="cerrarImagenCompleta()">
+      <div class="image-modal-content" (click)="$event.stopPropagation()">
+        <button type="button" class="btn-close-modal" (click)="cerrarImagenCompleta()">&times;</button>
+        <img [src]="imagenSeleccionada()" alt="Vista ampliada del ejemplar" class="full-image" />
+      </div>
+    </div>
+  }
+</div>

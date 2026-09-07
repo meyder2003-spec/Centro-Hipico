@@ -1,0 +1,53 @@
+<header class="header-institucional">
+  <!-- BARRA PRINCIPAL DE NAVEGACIÓN -->
+  <nav class="navbar-militar">
+    <div class="brand">
+      <div class="escudo">
+        <img src="/img/chm.jpg" alt="Escudo Ejército del Perú" class="escudo-img" />
+      </div>
+      <div class="brand-text">
+        <span class="titulo-entidad">CENTRO HÍPICO MILITAR</span>
+        <span class="subtitulo-entidad">EJÉRCITO DEL PERÚ</span>
+      </div>
+    </div>
+
+    <ul class="menu-principal">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">INICIO</a></li>
+      <li><a routerLink="/catalogo" routerLinkActive="active">CATÁLOGO</a></li>
+      @if (service.usuarioSesion()) {
+        @if (service.usuarioSesion()?.rol === 'ADMIN') {
+          <li><a routerLink="/admin-dashboard" routerLinkActive="active">ADMINISTRACIÓN</a></li>
+        }
+        <li><button (click)="salir()" class="btn-salir-militar">CERRAR SESIÓN</button></li>
+      } @else {
+        <li><a routerLink="/login" routerLinkActive="active">INGRESO</a></li>
+        <li><a routerLink="/registro" class="btn-destacado-militar">REGISTRO</a></li>
+      }
+    </ul>
+  </nav>
+
+  <!-- CARRUSEL DE ANUNCIOS INSTITUCIONALES -->
+  <div class="carrusel-comunicados">
+    <button class="btn-carrusel prev" (click)="anuncioAnterior()" title="Anuncio anterior">❮</button>
+
+    <div class="carrusel-contenedor">
+      @for (anuncio of anuncios; track $index) {
+        <div class="carrusel-item" [class.activo]="$index === anuncioActivo()">
+          <span class="bullet">◆</span> {{ anuncio }}
+        </div>
+      }
+    </div>
+
+    <button class="btn-carrusel next" (click)="siguienteAnuncio()" title="Siguiente anuncio">❯</button>
+
+    <div class="indicadores">
+      @for (anuncio of anuncios; track $index) {
+        <span 
+          class="punto" 
+          [class.activo]="$index === anuncioActivo()"
+          (click)="irAnuncio($index)">
+        </span>
+      }
+    </div>
+  </div>
+</header>

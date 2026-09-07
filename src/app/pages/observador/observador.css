@@ -1,0 +1,256 @@
+.container-observador {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Encabezado */
+.header-section {
+  border-bottom: 2px solid #d4af37;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.header-section h2 {
+  color: #d4af37;
+  font-size: 2.2rem;
+  margin: 0 0 0.4rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.header-section p {
+  color: #a0b0a5;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Filtros */
+.card-filtros {
+  background-color: #111a14;
+  border: 1px solid #2d3e32;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.filtros-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: flex-end;
+}
+
+.filtro-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+  min-width: 220px;
+}
+
+.filtro-item.btn-container {
+  flex: 0 0 auto;
+  min-width: auto;
+}
+
+.filtro-item label {
+  font-size: 0.85rem;
+  color: #d4af37;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.filtro-item input {
+  background-color: #1c2820;
+  border: 1px solid #3a4d40;
+  color: #ffffff;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  outline: none;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.filtro-item input:focus {
+  border-color: #d4af37;
+}
+
+.btn-clear {
+  background-color: transparent;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  height: 38px;
+}
+
+.btn-clear:hover {
+  background-color: #2a382e;
+  border-color: #d4af37;
+  color: #d4af37;
+}
+
+/* Grid de Tarjetas */
+.grid-caballos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.8rem;
+}
+
+/* Tarjeta del Caballo */
+.caballo-card {
+  background-color: #141e17;
+  border: 1px solid #2a3a2e;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.caballo-card:hover {
+  transform: translateY(-4px);
+  border-color: #d4af37;
+}
+
+.card-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: #0b120d;
+}
+
+.card-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge-sexo {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(20, 30, 23, 0.85);
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Cuerpo de la Tarjeta */
+.card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.card-title-row h4 {
+  color: #d4af37;
+  font-size: 1.3rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.code-tag {
+  background-color: #1c2820;
+  color: #a0b0a5;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  border: 1px solid #2d3e32;
+  font-family: monospace;
+}
+
+.detalles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.detalles-list li {
+  font-size: 0.9rem;
+  color: #cccccc;
+}
+
+.detalles-list strong {
+  color: #a0b0a5;
+}
+
+.descripcion-text {
+  font-size: 0.85rem;
+  color: #a0a0a0;
+  margin: 0 0 1.2rem 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Acciones y Ficha/Tarjeta PDF */
+.card-actions {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #212e24;
+}
+
+.btn-tarjeta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #1c2d22;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.btn-tarjeta:hover {
+  background-color: #d4af37;
+  color: #111a14;
+}
+
+.no-file {
+  display: block;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666666;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+/* Estado Vacío */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  background-color: #111a14;
+  border: 1px dashed #2d3e32;
+  border-radius: 8px;
+  color: #a0b0a5;
+}

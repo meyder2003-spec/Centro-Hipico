@@ -1,0 +1,90 @@
+<div class="container-observador">
+  <div class="header-section">
+    <h2>Catálogo de Consulta - Centro Hípico Militar</h2>
+    <p>Portal de lectura para usuarios Observadores.</p>
+  </div>
+
+  <!-- FILTROS -->
+  <section class="card-filtros">
+    <div class="filtros-grid">
+      <div class="filtro-item">
+        <label>Buscar por Nombre o Raza</label>
+        <input 
+          type="text" 
+          [value]="filtroTexto()" 
+          (input)="actualizarFiltroTexto($event)" 
+          placeholder="Escribe para buscar..."
+        />
+      </div>
+      <div class="filtro-item">
+        <label>Filtrar por Edad</label>
+        <input 
+          type="number" 
+          [value]="filtroEdad() ?? ''" 
+          (input)="actualizarFiltroEdad($event)" 
+          placeholder="Edad exacta..."
+        />
+      </div>
+      <div class="filtro-item btn-container">
+        <button type="button" class="btn-clear" (click)="limpiarFiltros()">Limpiar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTADO DE LECTURA -->
+  <section class="grid-caballos">
+    @for (c of caballosFiltrados(); track c.id || $index) {
+      <div class="caballo-card">
+        <div class="card-img-wrapper">
+          <img 
+            [src]="c.imagenUrl || 'https://via.placeholder.com/400x250?text=Sin+Imagen'" 
+            [alt]="c.nombre"
+          />
+          @if (c.sexo) {
+            <span class="badge-sexo">{{ c.sexo }}</span>
+          }
+        </div>
+
+        <div class="card-body">
+          <div class="card-title-row">
+            <h4>{{ c.nombre }}</h4>
+            @if (c.id) {
+              <span class="code-tag">{{ c.id }}</span>
+            }
+          </div>
+
+          <ul class="detalles-list">
+            <li><strong>Raza:</strong> {{ c.raza }}</li>
+            <li><strong>Edad:</strong> {{ c.edad }} años</li>
+            @if (c.establo) {
+              <li><strong>Ubicación:</strong> {{ c.establo }}</li>
+            }
+          </ul>
+
+          @if (c.descripcion) {
+            <p class="descripcion-text">{{ c.descripcion }}</p>
+          }
+
+          <div class="card-actions">
+            @if (c.tarjetaUrl || c.pdfUrl) {
+              <a 
+                [href]="c.tarjetaUrl || c.pdfUrl" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-tarjeta"
+              >
+                📄 Ver Tarjeta / Ficha (PDF/Imagen)
+              </a>
+            } @else {
+              <span class="no-file">Sin tarjeta adjunta</span>
+            }
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <p>No se encontraron registros que coincidan con la búsqueda.</p>
+      </div>
+    }
+  </section>
+</div>

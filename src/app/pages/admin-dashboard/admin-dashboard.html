@@ -1,0 +1,128 @@
+<div class="admin-container">
+  <!-- Cabecera del Panel -->
+  <header class="admin-header">
+    <div class="header-titles">
+      <span class="badge-militar">PANEL DE CONTROL GENERAL</span>
+      <h2>Administración del Sistema</h2>
+      <p class="admin-desc">Gestión de usuarios, solicitudes de acceso y registros institucionales</p>
+    </div>
+  </header>
+
+  <!-- Tarjetas de Métricas Dinámicas -->
+  <div class="metrics-grid">
+    <div class="metric-card destacado">
+      <span class="metric-label">Solicitudes Pendientes</span>
+      <p class="metric-value">{{ solicitudesPendientes().length }}</p>
+    </div>
+    <div class="metric-card">
+      <span class="metric-label">Usuarios Registrados</span>
+      <p class="metric-value">{{ usuariosAprobados().length }}</p>
+    </div>
+  </div>
+
+  <!-- Sección: Gestión de Solicitudes Pendientes de Firestore -->
+  <section class="admin-section">
+    <div class="section-header">
+      <h3>Solicitudes de Registro Pendientes</h3>
+    </div>
+
+    <div class="table-responsive">
+      @if (cargando()) {
+        <p style="color: #a0b0a5; padding: 1rem;">Cargando solicitudes de Firestore...</p>
+      } @else {
+        <table class="militar-table">
+          <thead>
+            <tr>
+              <th>Nombre Completo</th>
+              <th>Correo Electrónico</th>
+              <th>Perfil Solicitado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (solicitud of solicitudesPendientes(); track solicitud.id) {
+              <tr>
+                <td class="user-name">{{ solicitud.nombre }}</td>
+                <td>{{ solicitud.email }}</td>
+                <td>
+                  <span class="role-badge" [ngClass]="solicitud.rol === 'ADMIN' ? 'admin' : 'observer'">
+                    {{ solicitud.rol }}
+                  </span>
+                </td>
+                <td class="actions-cell">
+                  <button class="btn-action approve" (click)="aprobarSolicitud(solicitud.id)">
+                    Aprobar
+                  </button>
+                  <button class="btn-action reject" (click)="rechazarSolicitud(solicitud.id)">
+                    Rechazar
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="4" style="text-align: center; color: #a0b0a5; padding: 1.5rem;">
+                  No hay solicitudes pendientes de aprobación.
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  </section>
+
+  <!-- Sección: Usuarios Registrados (Control de Rol y Estado) -->
+  <section class="admin-section">
+    <div class="section-header">
+      <h3>Usuarios Registrados en el Sistema</h3>
+    </div>
+
+    <div class="table-responsive">
+      <table class="militar-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Correo</th>
+            <th>Rol Asignado</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of usuariosAprobados(); track user.id) {
+            <tr>
+              <td class="user-name">{{ user.nombre }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <!-- Selector para actualizar el rol en tiempo real -->
+                <select 
+                  class="role-select" 
+                  [value]="user.rol" 
+                  (change)="cambiarRol(user.id, $event)">
+                  <option value="ADMIN">ADMIN</option>
+                  <option value="OBSERVADOR">OBSERVADOR</option>
+                </select>
+              </td>
+              <td>
+                <!-- Selector dinámico para cambiar de ACTIVO a INACTIVO -->
+                <select 
+                  class="status-select" 
+                  [ngClass]="(user.estado || 'ACTIVO') === 'ACTIVO' ? 'active' : 'inactive'"
+                  [value]="user.estado || 'ACTIVO'" 
+                  (change)="cambiarEstado(user.id, $event)">
+                  <option value="ACTIVO">Activo</option>
+                  <option value="INACTIVO">Inactivo</option>
+                </select>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" style="text-align: center; color: #a0b0a5; padding: 1.5rem;">
+                No hay usuarios registrados aún.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
