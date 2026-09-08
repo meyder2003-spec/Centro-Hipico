@@ -16,6 +16,10 @@ export class ObservadorComponent {
   filtroTexto = signal<string>('');
   filtroEdad = signal<number | null>(null);
 
+  // Señales para controlar la visibilidad y datos del modal de imagen
+  imagenModalUrl = signal<string | null>(null);
+  imagenModalTitulo = signal<string>('');
+
   // Declaración explícita del tipo retornado para la plantilla
   caballosFiltrados = computed<Caballo[]>(() => {
     const texto = this.filtroTexto().toLowerCase().trim();
@@ -33,6 +37,17 @@ export class ObservadorComponent {
       return coincideTexto && coincideEdad;
     });
   });
+
+  // Métodos para abrir y cerrar la imagen a pantalla completa
+  abrirImagenModal(url: string, nombre: string): void {
+    this.imagenModalUrl.set(url);
+    this.imagenModalTitulo.set(nombre);
+  }
+
+  cerrarImagenModal(): void {
+    this.imagenModalUrl.set(null);
+    this.imagenModalTitulo.set('');
+  }
 
   actualizarFiltroTexto(event: Event): void {
     const input = event.target as HTMLInputElement;

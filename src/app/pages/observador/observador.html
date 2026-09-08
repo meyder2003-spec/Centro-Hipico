@@ -35,10 +35,13 @@
   <section class="grid-caballos">
     @for (c of caballosFiltrados(); track c.id || $index) {
       <div class="caballo-card">
+        <!-- Evento click en el contenedor y en la imagen -->
         <div class="card-img-wrapper">
           <img 
             [src]="c.imagenUrl || 'https://via.placeholder.com/400x250?text=Sin+Imagen'" 
             [alt]="c.nombre"
+            class="img-clickable"
+            (click)="abrirImagenModal(c.imagenUrl || 'https://via.placeholder.com/400x250?text=Sin+Imagen', c.nombre)"
           />
           @if (c.sexo) {
             <span class="badge-sexo">{{ c.sexo }}</span>
@@ -87,4 +90,17 @@
       </div>
     }
   </section>
+
+  <!-- MODAL DE VISUALIZACIÓN DE IMAGEN -->
+  @if (imagenModalUrl()) {
+    <div class="modal-overlay" (click)="cerrarImagenModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <button type="button" class="btn-cerrar-modal" (click)="cerrarImagenModal()">✕</button>
+        <img [src]="imagenModalUrl()" [alt]="imagenModalTitulo()" />
+        @if (imagenModalTitulo()) {
+          <p class="modal-titulo">{{ imagenModalTitulo() }}</p>
+        }
+      </div>
+    </div>
+  }
 </div>
