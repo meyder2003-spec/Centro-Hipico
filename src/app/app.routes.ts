@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth-guard';
 import { CatalogoCaballos } from './pages/catalogo-caballos/catalogo-caballos';
+import { NotFound } from './pages/not-found/not-found';
 
 export const routes: Routes = [
   { 
@@ -39,8 +40,8 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/catalogo-caballos/catalogo-caballos').then(m => m.CatalogoCaballos),
     canActivate: [authGuard]
   },
-  { 
-    path: '**', 
-    redirectTo: '' 
-  }
+ {
+      path: '**',
+      component:NotFound
+    }
 ];

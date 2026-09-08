@@ -1,0 +1,93 @@
+.container-404 {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  background-color: #0b120d;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-404 {
+  background-color: #141e17;
+  border: 2px solid #2a3a2e;
+  border-radius: 8px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-404::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #d4af37;
+}
+
+.badge-militar {
+  background-color: #1c2820;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.codigo-404 {
+  font-size: 5rem;
+  font-weight: 900;
+  color: #d4af37;
+  margin: 0.8rem 0 0.2rem 0;
+  letter-spacing: 4px;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.body-404 h2 {
+  color: #ffffff;
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.body-404 p {
+  color: #a0b0a5;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.acciones-404 {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-militar-primario {
+  background-color: #1c2d22;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.btn-militar-primario:hover {
+  background-color: #d4af37;
+  color: #111a14;
+}
